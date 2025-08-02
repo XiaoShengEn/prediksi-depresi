@@ -1,0 +1,37 @@
+Gender,Age,Academic Pressure,Study Satisfaction,Sleep Duration,Dietary Habits,Have you ever had suicidal thoughts ?,Study Hours,Financial Stress,Family History of Mental Illness,Depression
+Male,22,4.0,2.0,Less than 5 hours,Unhealthy,Yes,2,5,No,Yes
+Female,21,3.0,4.0,5-6 hours,Moderate,Yes,2,4,Yes,Yes
+Male,22,3.0,4.0,5-6 hours,Moderate,No,3,3,No,No
+Male,22,4.0,3.0,5-6 hours,Healthy,Yes,5,3,No,Yes
+Female,21,4.0,3.0,7-8 hours,Moderate,No,6,3,Yes,No
+Female,22,3.0,4.0,7-8 hours,Moderate,No,4,4,No,No
+Male,21,3.0,3.0,7-8 hours,Moderate,Yes,4,4,No,No
+Female,21,4.0,3.0,5-6 hours,Moderate,Yes,5,3,No,Yes
+Female,22,3.0,3.0,5-6 hours,Moderate,No,2,3,No,No
+Male,33,3.0,5.0,7-8 hours,Healthy,No,12,3,No,No
+Male,21,5.0,5.0,More than 8 hours,Unhealthy,Yes,12,5,Yes,Yes
+Male,21,4.0,3.0,More than 8 hours,Moderate,Yes,0,5,No,Yes
+Male,21,3.0,4.0,7-8 hours,Moderate,Yes,4,3,Yes,Yes
+Male,22,2.0,3.0,7-8 hours,Moderate,No,3,3,No,No
+Male,22,3.0,5.0,7-8 hours,Moderate,Yes,3,5,No,Yes
+Male,21,3.0,2.0,5-6 hours,Moderate,No,0,3,No,No
+Female,21,4.0,5.0,5-6 hours,Moderate,No,5,5,Yes,No
+Male,19,3.0,4.0,7-8 hours,Healthy,No,2,3,No,No
+Male,20,4.0,4.0,5-6 hours,Moderate,No,2,5,No,Yes
+Male,22,4.0,4.0,Less than 5 hours,Unhealthy,Yes,3,3,No,Yes
+Male,21,3.0,5.0,7-8 hours,Healthy,No,2,2,No,No
+Male,22,3.0,5.0,5-6 hours,Moderate,No,5,3,No,No
+Male,21,3.0,3.0,7-8 hours,Healthy,No,8,4,No,No
+Male,22,4.0,2.0,5-6 hours,Moderate,No,2,4,No,No
+Female,21,4.0,4.0,5-6 hours,Moderate,No,5,4,No,Yes
+Male,22,4.0,3.0,7-8 hours,Moderate,No,4,3,Yes,No
+Male,20,3.0,3.0,7-8 hours,Moderate,Yes,3,1,No,No
+Female,21,2.0,3.0,7-8 hours,Healthy,No,3,4,No,No
+Male,22,3.0,3.0,7-8 hours,Moderate,No,5,3,No,No
+Female,22,3.0,2.0,7-8 hours,Moderate,No,1,4,No,No
+Female,21,4.0,2.0,5-6 hours,Moderate,No,4,4,No,No
+Female,20,2.0,1.0,Less than 5 hours,Unhealthy,Yes,1,2,Yes,Yes
+Male,25,5.0,2.0,More than 8 hours,Unhealthy,No,10,5,No,No
+Male,24,4.0,4.0,7-8 hours,Healthy,No,8,4,No,No
+Male,20,3.0,1.0,Less than 5 hours,Moderate,No,1,5,No,Yes
+Female,21,3.0,3.0,5-6 hours,Moderate,No,6,2,No,No
