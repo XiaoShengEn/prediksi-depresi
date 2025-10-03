@@ -628,20 +628,19 @@ def show_predict():
                 st.error(f"An error occurred during input encoding: {e}")
             return
 
-        # Scale semua fitur lalu kembalikan Age ke nilai asli ------------------------
+        # Scale semua fitur
         try:
-            age_raw = input_data["Age"].values
-
             input_scaled = pd.DataFrame(
                 scaler.transform(input_data),
                 columns=input_data.columns
             )
 
-            # overwrite Age dengan nilai asli
-            input_scaled["Age"] = age_raw
+            # ambil probabilitas depresi
+            prob = model.predict_proba(input_scaled)[0][1]
 
-            # lakukan prediksi
-            prediction = model.predict(input_scaled)[0]
+            # tentukan threshold
+            threshold = 0.3
+            prediction = 1 if prob >= threshold else 0
 
         except Exception as e:
             if lang == "Indonesia":
