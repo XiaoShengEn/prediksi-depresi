@@ -298,13 +298,13 @@ LABELS_ID = {
     "predict_desc": "Isi formulir di bawah untuk memprediksi apakah anda berpotensi mengalami depresi.",
     "gender": "Jenis Kelamin",
     "age": "Usia",
-    "academic_pressure": "Seberapa Besar Tekanan Akademik Yang Anda Rasakan (1-5)",
-    "study_satisfaction": "Seberapa Puas Kepuasan Belajar Anda Dalam Belajar (1-5)",
+    "academic_pressure": "Seberapa Besar Tekanan Akademik Yang Anda Rasakan",
+    "study_satisfaction": "Seberapa Puas Kepuasan Belajar Anda Dalam Belajar",
     "sleep_duration": "Berapa Durasi Tidur Anda Dalam Sehari",
     "dietary_habits": "Bagaimana Pola Makan Anda Sehari Hari",
     "suicidal_thoughts": "Pernahkah Anda Berpikir Untuk Bunuh Diri?",
     "study_hours": "Seberapa Lama Anda Belajar Dalam Satu Hari",
-    "financial_stress": "Seberapa Besar Stres Finansial Anda (0-5)",
+    "financial_stress": "Seberapa Besar Stres Finansial Anda",
     "family_history": "Apakah Ada Riwayat Gangguan Mental Dalam Keluarga Anda",
     "predict_button": "Prediksi",
     "result_yes": "🚨 Mahasiswa ini kemungkinan mengalami depresi.",
@@ -321,13 +321,13 @@ LABELS_EN = {
     "predict_desc": "Fill out the form below to predict whether you are at risk of depression.",
     "gender": "Gender",
     "age": "Age",
-    "academic_pressure": "How Much Academic Pressure Do You Feel? (1-5)",
-    "study_satisfaction": "How Satisfied Are You With Your Studies? (1-5)",
+    "academic_pressure": "How Much Academic Pressure Do You Feel?",
+    "study_satisfaction": "How Satisfied Are You With Your Studies?",
     "sleep_duration": "How Long Do You Sleep Daily?",
     "dietary_habits": "What Is Your Daily Dietary Habit?",
     "suicidal_thoughts": "Have You Ever Had Suicidal Thoughts?",
     "study_hours": "How Many Hours Do You Study Daily?",
-    "financial_stress": "How Much Financial Stress Do You Experience? (0-5)",
+    "financial_stress": "How Much Financial Stress Do You Experience?",
     "family_history": "Is There a Family History of Mental Illness?",
     "predict_button": "Predict",
     "result_yes": "🚨 This student is likely experiencing depression.",
@@ -379,6 +379,31 @@ if lang == "Indonesia":
     diet_options = {"Sehat": "Healthy", "Sedang": "Moderate", "Tidak sehat": "Unhealthy"}
     suicidal_options = {"Ya": "Yes", "Tidak": "No"}
     family_history_options = {"Ya": "Yes", "Tidak": "No"}
+
+    # tambahan mapping skala (1–5 / 0–5)
+    academic_pressure_map = {
+        "Sangat ringan": 1,
+        "Ringan": 2,
+        "Sedang": 3,
+        "Berat": 4,
+        "Sangat berat": 5
+    }
+    study_satisfaction_map = {
+        "Sangat tidak puas": 1,
+        "Tidak puas": 2,
+        "Netral": 3,
+        "Puas": 4,
+        "Sangat puas": 5
+    }
+    financial_stress_map = {
+        "Tidak ada": 0,
+        "Sangat rendah": 1,
+        "Rendah": 2,
+        "Sedang": 3,
+        "Tinggi": 4,
+        "Sangat tinggi": 5
+    }
+
 else:
     gender_options = {"Male": "Male", "Female": "Female"}
     sleep_options = {
@@ -390,6 +415,30 @@ else:
     diet_options = {"Healthy": "Healthy", "Moderate": "Moderate", "Unhealthy": "Unhealthy"}
     suicidal_options = {"Yes": "Yes", "No": "No"}
     family_history_options = {"Yes": "Yes", "No": "No"}
+
+    # tambahan mapping skala (1–5 / 0–5)
+    academic_pressure_map = {
+        "Very light": 1,
+        "Light": 2,
+        "Moderate": 3,
+        "Heavy": 4,
+        "Very heavy": 5
+    }
+    study_satisfaction_map = {
+        "Very dissatisfied": 1,
+        "Dissatisfied": 2,
+        "Neutral": 3,
+        "Satisfied": 4,
+        "Very satisfied": 5
+    }
+    financial_stress_map = {
+        "None": 0,
+        "Very low": 1,
+        "Low": 2,
+        "Moderate": 3,
+        "High": 4,
+        "Very high": 5
+    }
 
 # ------------------------------------------------------------------
 # Page render helpers
@@ -496,74 +545,109 @@ def show_about():
         unsafe_allow_html=True,
     )
 
-
 def show_predict():
     st.title(LABELS["predict_title"])
     st.write("")
-
-    # Display short description if desired
     st.caption(LABELS["predict_desc"])
 
-    # Form inputs -----------------------------------------------------------------
     placeholder_txt = "- Pilih -" if lang == "Indonesia" else "- Select -"
 
     col1, col2 = st.columns(2)
+
     with col1:
         gender = st.selectbox(LABELS["gender"], [placeholder_txt] + list(gender_options.keys()))
-        age = st.slider(LABELS["age"], 18, 34)
-        academic_pressure = st.slider(LABELS["academic_pressure"], 1, 5)
-        study_satisfaction = st.slider(LABELS["study_satisfaction"], 1, 5)
-        sleep_duration = st.selectbox(LABELS["sleep_duration"], [placeholder_txt] + list(sleep_options.keys()))
+        
+        # 👉 Age manual input
+        age = st.number_input(LABELS["age"], min_value=18, max_value=34, step=1)
+
+        academic_pressure = st.selectbox(
+            LABELS["academic_pressure"],
+            [placeholder_txt] + list(academic_pressure_map.keys())
+        )
+
+        study_satisfaction = st.selectbox(
+            LABELS["study_satisfaction"],
+            [placeholder_txt] + list(study_satisfaction_map.keys())
+        )
+
+        sleep_duration = st.selectbox(
+            LABELS["sleep_duration"],
+            [placeholder_txt] + list(sleep_options.keys())
+        )
+
     with col2:
         dietary_habits = st.selectbox(LABELS["dietary_habits"], [placeholder_txt] + list(diet_options.keys()))
         suicidal_thoughts = st.selectbox(LABELS["suicidal_thoughts"], [placeholder_txt] + list(suicidal_options.keys()))
-        study_hours = st.slider(LABELS["study_hours"], 0, 12)
-        financial_stress = st.slider(LABELS["financial_stress"], 0, 5)
+        study_hours = st.selectbox(LABELS["study_hours"], [placeholder_txt] + [str(i) for i in range(0, 13)])
+        financial_stress = st.selectbox(LABELS["financial_stress"], [placeholder_txt] + list(financial_stress_map.keys()))
         family_history = st.selectbox(LABELS["family_history"], [placeholder_txt] + list(family_history_options.keys()))
 
     # Predict button ---------------------------------------------------------------
     if st.button(LABELS["predict_button"]):
-        # Validate selections
+        # Validasi input kosong
         if (
             gender == placeholder_txt
+            or academic_pressure == placeholder_txt
+            or study_satisfaction == placeholder_txt
             or sleep_duration == placeholder_txt
             or dietary_habits == placeholder_txt
             or suicidal_thoughts == placeholder_txt
+            or study_hours == placeholder_txt
+            or financial_stress == placeholder_txt
             or family_history == placeholder_txt
         ):
             st.warning(LABELS["warning"])
             return
 
-        # Ensure model pieces are loaded
         if not all([model is not None, scaler is not None, label_encoders is not None]):
-            st.error("Model components belum lengkap / not fully loaded.")
+            if lang == "Indonesia":
+                st.error("Komponen model belum lengkap.")
+            else:
+                st.error("Model components are not fully loaded.")
             return
 
         try:
             input_data = pd.DataFrame([
                 {
                     'Gender': label_encoders['Gender'].transform([gender_options[gender]])[0],
-                    'Age': age,
-                    'Academic Pressure': academic_pressure,
-                    'Study Satisfaction': study_satisfaction,
+                    'Age': int(age),
+                    'Academic Pressure': academic_pressure_map[academic_pressure],
+                    'Study Satisfaction': study_satisfaction_map[study_satisfaction],
                     'Sleep Duration': label_encoders['Sleep Duration'].transform([sleep_options[sleep_duration]])[0],
                     'Dietary Habits': label_encoders['Dietary Habits'].transform([diet_options[dietary_habits]])[0],
                     'Have you ever had suicidal thoughts ?': label_encoders['Have you ever had suicidal thoughts ?'].transform([suicidal_options[suicidal_thoughts]])[0],
-                    'Study Hours': study_hours,
-                    'Financial Stress': financial_stress,
+                    'Study Hours': int(study_hours),
+                    'Financial Stress': financial_stress_map[financial_stress],
                     'Family History of Mental Illness': label_encoders['Family History of Mental Illness'].transform([family_history_options[family_history]])[0],
                 }
             ])
-        except Exception as e:  # pragma: no cover
-            st.error(f"Terjadi kesalahan saat encoding input: {e}")
+        except Exception as e:
+            if lang == "Indonesia":
+                st.error(f"Terjadi kesalahan saat encoding input: {e}")
+            else:
+                st.error(f"An error occurred during input encoding: {e}")
             return
 
-        # Scale + predict ----------------------------------------------------------
+        # Scale semua fitur lalu kembalikan Age ke nilai asli ------------------------
         try:
-            input_scaled = scaler.transform(input_data)
+            age_raw = input_data["Age"].values
+
+            input_scaled = pd.DataFrame(
+                scaler.transform(input_data),
+                columns=input_data.columns
+            )
+
+            # overwrite Age dengan nilai asli
+            input_scaled["Age"] = age_raw
+
+            # lakukan prediksi
             prediction = model.predict(input_scaled)[0]
-        except Exception as e:  # pragma: no cover
-            st.error(f"Terjadi kesalahan saat melakukan prediksi: {e}")
+
+        except Exception as e:
+            if lang == "Indonesia":
+                st.error(f"Terjadi kesalahan saat prediksi: {e}")
+            else:
+                st.error(f"An error occurred during prediction: {e}")
             return
 
         # Display result -----------------------------------------------------------
@@ -661,7 +745,6 @@ def show_predict():
                     - ☀️ **Get morning sun exposure** for natural vitamin D & mood boost  
                     """
                 )
-
 
 # ------------------------------------------------------------------
 # Router
